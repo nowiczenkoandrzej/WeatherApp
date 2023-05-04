@@ -1,6 +1,7 @@
 package com.plcoding.weatherapp.di
 
 import android.app.Application
+import android.location.Geocoder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.plcoding.weatherapp.data.remote.WeatherApi
@@ -28,11 +29,16 @@ object AppModule {
             .create()
     }
 
-
     @Provides
     @Singleton
     fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGeocoder(app: Application): Geocoder {
+        return Geocoder(app)
     }
 
 }

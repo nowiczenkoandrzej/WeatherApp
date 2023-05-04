@@ -1,5 +1,6 @@
 package com.plcoding.weatherapp.presentation
 
+import android.location.Geocoder
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
-    private val locationTracker: LocationTracker
+    private val locationTracker: LocationTracker,
+    private val geocoder: Geocoder
 ): ViewModel() {
 
     var state by mutableStateOf(WeatherState())
@@ -35,8 +37,17 @@ class WeatherViewModel @Inject constructor(
                     long = location.longitude
                 )) {
                     is Resource.Success -> {
+
+                        val address = geocoder.getFromLocation(
+                            location.latitude,
+                            location.longitude,
+                            1
+                        )[0].locality.toString()
+
+
                         state = state.copy(
                             weatherInfo = result.data,
+                            address = address,
                             isLoading = false,
                             error = null
                         )
