@@ -44,6 +44,12 @@ class WeatherViewModel @Inject constructor(
                             1
                         )[0].locality.toString()
 
+                        val name = "wroclaw"
+
+                        val loc = geocoder.getFromLocationName(name, 1)
+
+                        Log.d("lokacja", "loadWeatherInfo: $loc")
+
 
                         state = state.copy(
                             weatherInfo = result.data,
