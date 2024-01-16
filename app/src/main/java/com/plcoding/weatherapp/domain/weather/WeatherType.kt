@@ -150,5 +150,39 @@ sealed class WeatherType(
                 else -> ClearSky
             }
         }
+
+        fun fromDesc(desc: String): WeatherType {
+            return when(desc) {
+                "Clear sky" -> ClearSky
+                "Mainly clear" -> MainlyClear
+                "Partly cloudy" -> PartlyCloudy
+                "Overcast" -> Overcast
+                "Foggy" -> Foggy
+                "Depositing rime fog" -> DepositingRimeFog
+                "Light drizzle" -> LightDrizzle
+                "Moderate drizzle" -> ModerateDrizzle
+                "Dense drizzle" -> DenseDrizzle
+                "Slight freezing drizzle" -> LightFreezingDrizzle
+                "Dense freezing drizzle" -> DenseFreezingDrizzle
+                "Slight rain" -> SlightRain
+                "Rainy" -> ModerateRain
+                "Heavy rain" -> HeavyRain
+                "Heavy freezing rain" -> HeavyFreezingRain
+                "Slight snow fall" -> SlightSnowFall
+                "Moderate snow fall" -> ModerateSnowFall
+                "Heavy snow fall" -> HeavySnowFall
+                "Snow grains" -> SnowGrains
+                "Slight rain showers" -> SlightRainShowers
+                "Moderate rain showers" -> ModerateRainShowers
+                "Violent rain showers" -> ViolentRainShowers
+                "Light snow showers" -> SlightSnowShowers
+                "Heavy snow showers" -> HeavySnowShowers
+                "Moderate thunderstorm" -> ModerateThunderstorm
+                "Thunderstorm with slight hail" -> SlightHailThunderstorm
+                "Thunderstorm with heavy hail" -> HeavyHailThunderstorm
+                else -> ClearSky
+            }
+        }
     }
+
 }

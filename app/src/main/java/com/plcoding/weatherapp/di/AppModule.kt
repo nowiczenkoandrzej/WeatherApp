@@ -2,8 +2,11 @@ package com.plcoding.weatherapp.di
 
 import android.app.Application
 import android.location.Geocoder
+import androidx.room.Room
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.plcoding.weatherapp.data.local.WeatherDao
+import com.plcoding.weatherapp.data.local.WeatherDatabase
 import com.plcoding.weatherapp.data.remote.WeatherApi
 import dagger.Module
 import dagger.Provides
@@ -39,6 +42,24 @@ object AppModule {
     @Singleton
     fun provideGeocoder(app: Application): Geocoder {
         return Geocoder(app)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherDatabase(app: Application): WeatherDatabase {
+        return Room.databaseBuilder(
+            app,
+            WeatherDatabase::class.java,
+            "weather-db"
+        )
+            .allowMainThreadQueries()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherDao(weatherDatabase: WeatherDatabase): WeatherDao {
+        return weatherDatabase.weatherDao()
     }
 
 }

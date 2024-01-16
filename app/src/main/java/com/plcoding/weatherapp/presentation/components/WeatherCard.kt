@@ -20,14 +20,15 @@ import com.plcoding.weatherapp.presentation.WeatherState
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 import com.plcoding.weatherapp.R
+import com.plcoding.weatherapp.domain.weather.WeatherData
 
 @Composable
 fun WeatherCard(
-    state: WeatherState,
+    state: WeatherData,
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
-    state.weatherInfo?.currentWeatherData?.let { data ->
+    state.let { data ->
         Card(
             backgroundColor = backgroundColor,
             shape = RoundedCornerShape(10.dp),
@@ -41,19 +42,17 @@ fun WeatherCard(
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.End
                 ) {
-                    Text(
-                        text = state.address,
-                        color = Color.White
-                    )
 
                     Text(
-                        text = "Today ${
+                        text = data.time.toString(),
+
+                        /*"Today ${
                             data.time.format(
                                 DateTimeFormatter.ofPattern("HH:mm")
                             )
-                        }",
+                        }",*/
                     //    modifier = Modifier.align(Alignment.End),
                         color = Color.White
                     )

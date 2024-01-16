@@ -1,5 +1,6 @@
 package com.plcoding.weatherapp.data.mappers
 
+import com.plcoding.weatherapp.data.local.WeatherEntity
 import com.plcoding.weatherapp.data.remote.WeatherDataDto
 import com.plcoding.weatherapp.data.remote.WeatherDto
 import com.plcoding.weatherapp.domain.weather.WeatherData
@@ -50,4 +51,26 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
         currentWeatherData = currentWeatherData
     )
 
+}
+
+fun WeatherData.toWeatherEntity(): WeatherEntity {
+    return WeatherEntity(
+        time = this.time.toString(),
+        temperature = this.temperatureCelsius,
+        weatherDescription = this.weatherType.weatherDesc,
+        pressure = this.pressure,
+        windSpeed = this.windSpeed,
+        humidity = this.humidity
+    )
+}
+
+fun WeatherEntity.toWeatherData(): WeatherData {
+    return WeatherData(
+        time = LocalDateTime.parse(this.time),
+        temperatureCelsius = this.temperature,
+        weatherType = WeatherType.fromDesc(this.weatherDescription),
+        pressure = this.pressure,
+        windSpeed = this.windSpeed,
+        humidity = this.humidity
+    )
 }
